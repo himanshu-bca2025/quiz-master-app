@@ -173,28 +173,6 @@ const BackgroundMusic: React.FC = () => {
       </button>
       
       {isPlaying && (
-        <div className="flex items-center gap-1 sm:gap-2 pr-1 sm:pr-2 animate-fade-in">
-          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zm2.5 0c0 .94-.2 1.82-.54 2.64h1.42c.9-1.2 1.43-2.68 1.43-4.3 0-1.62-.53-3.1-1.43-4.3h-1.42c.34.82.54 1.7.54 2.64v3.27zm-7.5-7.27v2.06c2.89.86 5 3.54 5 6.77s-2.11 5.91-5 6.77v2.06c4.01-.91 7-4.49 7-8.83s-2.99-7.92-7-8.83z" />
-          </svg>
-          <input
-            type="range"
-            min="0"
-            max="1"
-            step="0.05"
-            value={volume}
-            onChange={handleVolumeChange}
-            className="w-16 sm:w-24 h-2 bg-white/30 rounded-lg appearance-none cursor-pointer hover:bg-white/40 transition-colors"
-            style={{
-              background: `linear-gradient(to right, white ${volume * 100}%, rgba(255,255,255,0.3) ${volume * 100}%)`
-            }}
-            title={`Volume: ${Math.round(volume * 100)}%`}
-          />
-          <span className="text-white text-xs sm:text-sm font-bold min-w-[2rem] flex-shrink-0">{Math.round(volume * 100)}%</span>
-        </div>
-      )}
-      
-      {isPlaying && (
         <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
       )}
     </div>

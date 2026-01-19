@@ -276,9 +276,10 @@ export default function QuizGame({ user, userData, onUpdateCoins, onBackToDashbo
   }
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-4 sm:p-6 md:p-8 flex flex-col items-center overflow-y-auto">
-      {!isFinished ? (
-        <div className="w-full max-w-2xl my-auto">
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-y-auto">
+      <div className="w-full min-h-screen flex flex-col items-center p-4 sm:p-6 md:p-8">
+        {!isFinished ? (
+          <div className="w-full max-w-2xl">
           {/* Game Header */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
             <div className="flex gap-2 sm:gap-4 w-full sm:w-auto">
@@ -409,6 +410,7 @@ export default function QuizGame({ user, userData, onUpdateCoins, onBackToDashbo
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 }

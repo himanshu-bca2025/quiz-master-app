@@ -114,8 +114,8 @@ export default function ForgotPassword({ onBack }: ForgotPasswordProps) {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
-      <div className="w-full max-w-md my-auto">
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-y-auto">
+      <div className="w-full max-w-md">
         <div className="bg-slate-900 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-500/30 p-6 sm:p-8 backdrop-blur-sm">
           {/* Header */}
           <div className="text-center mb-6 sm:mb-8">

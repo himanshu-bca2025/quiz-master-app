@@ -143,8 +143,9 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
   const isOwned = (itemId: string) => userData.purchases.includes(itemId);
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto">
-      <div className="max-w-6xl mx-auto">
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-y-auto">
+      <div className="w-full min-h-screen flex flex-col p-4 sm:p-6 md:p-8">
+        <div className="flex-1 max-w-6xl w-full mx-auto">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
           <div>
@@ -255,6 +256,7 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
             <li>🎯 Some items are permanent, some are one-time use</li>
             <li>💰 Earn coins by playing and winning quizzes</li>
           </ul>
+        </div>
         </div>
       </div>
     </div>
