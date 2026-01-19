@@ -183,7 +183,7 @@ export default function LoginPage({ onLogin, onForgotPassword }: LoginPageProps)
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-xl transition-all transform hover:scale-105 active:scale-95"
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-black py-4 sm:py-5 text-lg sm:text-xl rounded-xl sm:rounded-2xl transition-all transform hover:scale-105 active:scale-95 shadow-lg"
             >
               {isSignup ? '✨ Create Account' : '🚀 Login'}
             </button>
