@@ -44,11 +44,10 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
   const nextMilestone = getNextMilestone();
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-y-auto">
-      <div className="w-full min-h-screen flex flex-col p-4 sm:p-6 md:p-8">
-        <div className="flex-1 max-w-6xl w-full mx-auto">
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-hidden flex items-center justify-center">
+      <div className="w-full max-w-7xl px-4 sm:px-6 md:px-8 py-6">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">"
           <div>
             <h1 className="text-3xl sm:text-4xl font-black">🎮 QUIZ MASTER</h1>
             <p className="text-gray-400 text-sm sm:text-base">Welcome back, <span className="text-purple-400 font-bold">{user.username}</span>!</p>
@@ -62,7 +61,7 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
           {/* Coins Card */}
           <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-lg border border-yellow-400/30">
             <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">💰</div>
@@ -86,7 +85,7 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
         </div>
 
         {/* Progress Bar */}
-        <div className="bg-slate-900/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-slate-700">
+        <div className="bg-slate-900/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 mb-4 sm:mb-6 border border-slate-700">
           <div className="flex justify-between mb-2">
             <p className="text-gray-300 font-bold text-sm sm:text-base">Progress to Level {userData.level + 1}</p>
             <p className="text-purple-400 font-bold text-sm sm:text-base">{userData.coins % 100}/100 coins</p>
@@ -103,26 +102,26 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
         </div>
 
         {/* Main Action Buttons */}
-        <div className="space-y-4 mb-8">
+        <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
           <button
             onClick={onStartGame}
-            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black py-4 rounded-2xl text-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg"
+            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg"
           >
             🚀 START GAME
           </button>
 
           <button
             onClick={onOpenStore}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-4 rounded-2xl text-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg"
           >
             🛍️ VISIT STORE ({userData.coins} coins available)
           </button>
         </div>
 
         {/* Info Section */}
-        <div className="bg-slate-900/50 rounded-2xl p-6 border border-slate-700">
-          <h3 className="font-bold text-lg mb-4">📈 Your Progress</h3>
-          <div className="space-y-2 text-sm text-gray-300">
+        <div className="bg-slate-900/50 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 border border-slate-700">
+          <h3 className="font-bold text-base sm:text-lg mb-3 sm:mb-4">📈 Your Progress</h3>
+          <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm text-gray-300">
             <p>🎮 Current Difficulty: <span className="text-yellow-400 font-bold">{difficulty.name}</span></p>
             <p>📊 Questions per Game: <span className="text-purple-400 font-bold">{getQuestionCount()}</span></p>
             <p>🎯 Level {userData.level} - {userData.coins % 100}/100 coins to next level</p>
@@ -134,7 +133,6 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
               🏆 Perfect game (all correct): +10 bonus coins
             </p>
           </div>
-        </div>
         </div>
       </div>
     </div>
