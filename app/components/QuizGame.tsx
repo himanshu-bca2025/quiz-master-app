@@ -272,35 +272,35 @@ export default function QuizGame({ user, userData, onUpdateCoins, onBackToDashbo
   };
 
   if (loading) {
-    return <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center text-white text-2xl">🎮 Loading Game...</div>;
+    return <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center text-white text-xl sm:text-2xl">🎮 Loading Game...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-4 flex flex-col items-center">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-4 sm:p-6 md:p-8 flex flex-col items-center overflow-y-auto">
       {!isFinished ? (
-        <div className="w-full max-w-2xl">
+        <div className="w-full max-w-2xl my-auto">
           {/* Game Header */}
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex gap-4">
-              <div className="bg-yellow-600/30 border border-yellow-500 rounded-xl px-4 py-2">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
+            <div className="flex gap-2 sm:gap-4 w-full sm:w-auto">
+              <div className="bg-yellow-600/30 border border-yellow-500 rounded-xl px-3 sm:px-4 py-2 flex-1 sm:flex-initial">
                 <p className="text-xs text-gray-300">Coins</p>
-                <p className="text-2xl font-black text-yellow-400">💰 {coins}</p>
+                <p className="text-xl sm:text-2xl font-black text-yellow-400">💰 {coins}</p>
               </div>
-              <div className="bg-purple-600/30 border border-purple-500 rounded-xl px-4 py-2">
+              <div className="bg-purple-600/30 border border-purple-500 rounded-xl px-3 sm:px-4 py-2 flex-1 sm:flex-initial">
                 <p className="text-xs text-gray-300">Correct</p>
-                <p className="text-2xl font-black text-purple-400">{correctCount}/{questions.length}</p>
+                <p className="text-xl sm:text-2xl font-black text-purple-400">{correctCount}/{questions.length}</p>
               </div>
             </div>
             <button
               onClick={onBackToDashboard}
-              className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-xl font-bold transition-all"
+              className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-xl font-bold transition-all w-full sm:w-auto"
             >
               Exit Game
             </button>
           </div>
 
           {/* Progress Bar */}
-          <div className="w-full bg-slate-800 h-3 rounded-full overflow-hidden mb-8">
+          <div className="w-full bg-slate-800 h-2 sm:h-3 rounded-full overflow-hidden mb-6 sm:mb-8">
             <div
               className="bg-gradient-to-r from-purple-500 to-pink-500 h-full transition-all duration-300"
               style={{ width: `${((currentIdx + 1) / questions.length) * 100}%` }}
@@ -308,24 +308,24 @@ export default function QuizGame({ user, userData, onUpdateCoins, onBackToDashbo
           </div>
 
           {/* Question Card */}
-          <div className="bg-slate-900/80 border border-purple-500/30 rounded-2xl p-8 mb-8 backdrop-blur-sm">
-            <div className="mb-6">
-              <span className="inline-block bg-blue-600/30 border border-blue-500 text-blue-300 text-xs font-bold px-3 py-1 rounded-lg mb-4">
+          <div className="bg-slate-900/80 border border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-8 mb-6 sm:mb-8 backdrop-blur-sm">
+            <div className="mb-4 sm:mb-6">
+              <span className="inline-block bg-blue-600/30 border border-blue-500 text-blue-300 text-xs font-bold px-3 py-1 rounded-lg mb-3 sm:mb-4">
                 {questions[currentIdx].cat} • Question {currentIdx + 1}/{questions.length}
               </span>
-              <h2 className="text-3xl font-bold leading-relaxed min-h-[80px]">
+              <h2 className="text-xl sm:text-3xl font-bold leading-relaxed min-h-[60px] sm:min-h-[80px]">
                 {questions[currentIdx].q}
               </h2>
             </div>
 
             {/* Options */}
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-1 gap-2 sm:gap-3">
               {questions[currentIdx].options.map((opt, i) => (
                 <button
                   key={i}
                   onClick={() => !showResult && handleAnswer(opt)}
                   disabled={showResult}
-                  className={`w-full p-4 text-left rounded-xl font-bold transition-all transform ${
+                  className={`w-full p-3 sm:p-4 text-left rounded-xl font-bold transition-all transform text-sm sm:text-base ${
                     selectedAnswer === opt
                       ? opt === questions[currentIdx].ans
                         ? 'bg-green-600 border-2 border-green-400 scale-105'

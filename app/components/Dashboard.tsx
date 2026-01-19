@@ -44,60 +44,60 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
   const nextMilestone = getNextMilestone();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-4">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-4 sm:p-6 md:p-8 overflow-y-auto">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
           <div>
-            <h1 className="text-4xl font-black">🎮 QUIZ MASTER</h1>
-            <p className="text-gray-400">Welcome back, <span className="text-purple-400 font-bold">{user.username}</span>!</p>
+            <h1 className="text-3xl sm:text-4xl font-black">🎮 QUIZ MASTER</h1>
+            <p className="text-gray-400 text-sm sm:text-base">Welcome back, <span className="text-purple-400 font-bold">{user.username}</span>!</p>
           </div>
           <button
             onClick={onLogout}
-            className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-xl font-bold transition-all"
+            className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-xl font-bold transition-all w-full sm:w-auto"
           >
             Logout
           </button>
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-6 sm:mb-8">
           {/* Coins Card */}
-          <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-2xl p-6 shadow-lg border border-yellow-400/30">
-            <div className="text-4xl mb-2">💰</div>
-            <p className="text-yellow-100 text-sm mb-1">Total Coins</p>
-            <p className="text-3xl font-black">{userData.coins}</p>
+          <div className="bg-gradient-to-br from-yellow-600 to-orange-600 rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-lg border border-yellow-400/30">
+            <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">💰</div>
+            <p className="text-yellow-100 text-xs sm:text-sm mb-1">Total Coins</p>
+            <p className="text-xl sm:text-3xl font-black">{userData.coins}</p>
           </div>
 
           {/* Level Card */}
-          <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-2xl p-6 shadow-lg border border-purple-400/30">
-            <div className="text-4xl mb-2">⭐</div>
-            <p className="text-purple-100 text-sm mb-1">Level</p>
-            <p className="text-3xl font-black">{userData.level}</p>
+          <div className="bg-gradient-to-br from-purple-600 to-pink-600 rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-lg border border-purple-400/30">
+            <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">⭐</div>
+            <p className="text-purple-100 text-xs sm:text-sm mb-1">Level</p>
+            <p className="text-xl sm:text-3xl font-black">{userData.level}</p>
           </div>
 
           {/* Questions Card */}
-          <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-2xl p-6 shadow-lg border border-blue-400/30">
-            <div className="text-4xl mb-2">🎯</div>
-            <p className="text-blue-100 text-sm mb-1">Questions</p>
-            <p className="text-3xl font-black">{userData.questionsCompleted}</p>
+          <div className="bg-gradient-to-br from-blue-600 to-cyan-600 rounded-xl sm:rounded-2xl p-3 sm:p-6 shadow-lg border border-blue-400/30">
+            <div className="text-2xl sm:text-4xl mb-1 sm:mb-2">🎯</div>
+            <p className="text-blue-100 text-xs sm:text-sm mb-1">Questions</p>
+            <p className="text-xl sm:text-3xl font-black">{userData.questionsCompleted}</p>
           </div>
         </div>
 
         {/* Progress Bar */}
-        <div className="bg-slate-900/50 rounded-2xl p-6 mb-8 border border-slate-700">
+        <div className="bg-slate-900/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 mb-6 sm:mb-8 border border-slate-700">
           <div className="flex justify-between mb-2">
-            <p className="text-gray-300 font-bold">Progress to Level {userData.level + 1}</p>
-            <p className="text-purple-400 font-bold">{userData.coins % 100}/100 coins</p>
+            <p className="text-gray-300 font-bold text-sm sm:text-base">Progress to Level {userData.level + 1}</p>
+            <p className="text-purple-400 font-bold text-sm sm:text-base">{userData.coins % 100}/100 coins</p>
           </div>
-          <div className="w-full bg-slate-800 h-4 rounded-full overflow-hidden">
+          <div className="w-full bg-slate-800 h-3 sm:h-4 rounded-full overflow-hidden">
             <div
               className="bg-gradient-to-r from-purple-500 to-pink-500 h-full transition-all duration-500 rounded-full"
               style={{ width: `${progressPercent}%` }}
             ></div>
           </div>
           {userData.coins >= 100 && (
-            <p className="text-green-400 text-sm mt-2">✅ You unlocked a new difficulty level!</p>
+            <p className="text-green-400 text-xs sm:text-sm mt-2">✅ You unlocked a new difficulty level!</p>
           )}
         </div>
 

@@ -103,14 +103,14 @@ export default function LoginPage({ onLogin, onForgotPassword }: LoginPageProps)
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-slate-900 rounded-3xl shadow-2xl border border-purple-500/30 p-8 backdrop-blur-sm">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-y-auto">
+      <div className="w-full max-w-md my-auto">
+        <div className="bg-slate-900 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-500/30 p-6 sm:p-8 backdrop-blur-sm">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="text-6xl mb-3">🎮</div>
-            <h1 className="text-4xl font-black text-white mb-2">QUIZ MASTER</h1>
-            <p className="text-gray-400 text-sm">Learn, Play & Earn Coins!</p>
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="text-5xl sm:text-6xl mb-3">🎮</div>
+            <h1 className="text-3xl sm:text-4xl font-black text-white mb-2">QUIZ MASTER</h1>
+            <p className="text-gray-400 text-xs sm:text-sm">Learn, Play & Earn Coins!</p>
           </div>
 
           {/* Form */}

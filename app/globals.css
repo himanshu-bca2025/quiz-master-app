@@ -19,8 +19,103 @@
   }
 }
 
+/* Full Screen Responsive Layout */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: fixed;
+  -webkit-overflow-scrolling: touch;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+#__next {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+/* Mobile First - Phone (Portrait) */
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+  }
+  
+  button {
+    min-height: 44px;
+    font-size: 16px;
+  }
+  
+  input {
+    font-size: 16px;
+    min-height: 44px;
+  }
+}
+
+/* Phone (Landscape) */
+@media (min-width: 641px) and (max-width: 767px) and (orientation: landscape) {
+  body {
+    font-size: 14px;
+  }
+}
+
+/* Tablet (Portrait) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* Tablet (Landscape) and Small Laptop */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* Laptop and Desktop */
+@media (min-width: 1280px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+/* Prevent zoom on iOS */
+@supports (-webkit-touch-callout: none) {
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.7);
 }

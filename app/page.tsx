@@ -5,6 +5,7 @@ import Dashboard from './components/Dashboard';
 import QuizGame from './components/QuizGame';
 import Store from './components/Store';
 import ForgotPassword from './components/ForgotPassword';
+import BackgroundMusic from './components/BackgroundMusic';
 
 interface User {
   id: string;
@@ -78,6 +79,7 @@ export default function QuizApp() {
 
   return (
     <>
+      <BackgroundMusic />
       {currentPage === 'login' && <LoginPage onLogin={handleLogin} onForgotPassword={() => setCurrentPage('forgot-password')} />}
       {currentPage === 'forgot-password' && <ForgotPassword onBack={() => setCurrentPage('login')} />}
       {currentPage === 'dashboard' && currentUser && userData && (
