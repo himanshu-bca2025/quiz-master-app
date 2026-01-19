@@ -74,11 +74,11 @@ export default function QuizApp() {
   };
 
   if (loading) {
-    return <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center text-white text-2xl">🎮 Loading...</div>;
+    return <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center text-white text-2xl">🎮 Loading...</div>;
   }
 
   return (
-    <>
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 overflow-hidden">
       <BackgroundMusic />
       {currentPage === 'login' && <LoginPage onLogin={handleLogin} onForgotPassword={() => setCurrentPage('forgot-password')} />}
       {currentPage === 'forgot-password' && <ForgotPassword onBack={() => setCurrentPage('login')} />}
@@ -117,6 +117,6 @@ export default function QuizApp() {
           onBack={() => setCurrentPage('dashboard')}
         />
       )}
-    </>
+    </div>
   );
 }

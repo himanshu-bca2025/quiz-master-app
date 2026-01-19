@@ -4,151 +4,198 @@ import React, { useState, useEffect, useRef } from 'react';
 const BackgroundMusic: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.3);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const oscillatorsRef = useRef<OscillatorNode[]>([]);
+  const masterGainRef = useRef<GainNode | null>(null);
 
+  // Initialize audio context and master gain
   useEffect(() => {
-    // Create audio context with Web Audio API for better control
-    audioRef.current = new Audio();
-    audioRef.current.loop = true;
-    audioRef.current.volume = volume;
-    
-    // Energetic background music data URL (upbeat electronic/game theme)
-    // This is a simple synthesized melody using Web Audio API
-    createEnergeticTheme();
+    const initAudio = () => {
+      try {
+        const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+        audioContextRef.current = audioContext;
+        
+        const masterGain = audioContext.createGain();
+        masterGain.gain.value = volume;
+        masterGain.connect(audioContext.destination);
+        masterGainRef.current = masterGain;
+      } catch (e) {
+        console.log("Audio context initialization failed:", e);
+      }
+    };
+
+    // Initialize on first user interaction
+    const handleFirstClick = () => {
+      initAudio();
+      document.removeEventListener('click', handleFirstClick);
+    };
+
+    document.addEventListener('click', handleFirstClick);
 
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
+      document.removeEventListener('click', handleFirstClick);
+      // Stop all oscillators
+      oscillatorsRef.current.forEach(osc => {
+        try {
+          osc.stop();
+        } catch (e) {
+          // Already stopped
+        }
+      });
+      oscillatorsRef.current = [];
     };
   }, []);
 
-  const createEnergeticTheme = () => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    const masterGain = audioContext.createGain();
-    masterGain.gain.value = volume;
-    masterGain.connect(audioContext.destination);
+  const playMelodyLoop = () => {
+    if (!audioContextRef.current || !masterGainRef.current || !isPlaying) return;
 
-    // Function to create energetic theme music
-    const playTheme = () => {
-      if (!isPlaying) return;
+    const audioContext = audioContextRef.current;
+    const masterGain = masterGainRef.current;
+    const now = audioContext.currentTime;
+    const tempo = 0.15;
 
-      const now = audioContext.currentTime;
-      const tempo = 0.15; // Fast tempo for energy
+    // Energetic melody notes
+    const melodyNotes = [523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 587.33];
+    const bassNotes = [261.63, 293.66, 329.63, 349.23];
 
-      // Melody notes (energetic scale)
-      const melodyNotes = [523.25, 587.33, 659.25, 783.99, 880.00, 783.99, 659.25, 587.33];
-      const bassNotes = [261.63, 293.66, 329.63, 349.23];
+    // Play melody
+    melodyNotes.forEach((freq, i) => {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      
+      osc.frequency.value = freq;
+      osc.type = 'square';
+      
+      gain.gain.setValueAtTime(0.05, now + i * tempo);
+      gain.gain.linearRampToValueAtTime(0.08, now + i * tempo + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + i * tempo + tempo - 0.02);
+      
+      osc.connect(gain);
+      gain.connect(masterGain);
+      
+      osc.start(now + i * tempo);
+      osc.stop(now + i * tempo + tempo - 0.01);
+      
+      oscillatorsRef.current.push(osc);
+    });
 
-      // Play melody
-      melodyNotes.forEach((freq, i) => {
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        
-        osc.frequency.value = freq;
-        osc.type = 'square';
-        
-        gain.gain.setValueAtTime(0, now + i * tempo);
-        gain.gain.linearRampToValueAtTime(0.1, now + i * tempo + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + i * tempo + tempo - 0.01);
-        
-        osc.connect(gain);
-        gain.connect(masterGain);
-        
-        osc.start(now + i * tempo);
-        osc.stop(now + i * tempo + tempo);
+    // Play bass
+    bassNotes.forEach((freq, i) => {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      
+      osc.frequency.value = freq;
+      osc.type = 'sine';
+      
+      gain.gain.setValueAtTime(0.08, now + i * tempo * 2);
+      gain.gain.linearRampToValueAtTime(0.12, now + i * tempo * 2 + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + i * tempo * 2 + tempo * 2 - 0.02);
+      
+      osc.connect(gain);
+      gain.connect(masterGain);
+      
+      osc.start(now + i * tempo * 2);
+      osc.stop(now + i * tempo * 2 + tempo * 2 - 0.01);
+      
+      oscillatorsRef.current.push(osc);
+    });
+
+    // Clean up stopped oscillators and schedule next loop
+    const loopDuration = melodyNotes.length * tempo * 1000;
+    setTimeout(() => {
+      oscillatorsRef.current = oscillatorsRef.current.filter(osc => {
+        try {
+          return osc.context.state === 'running';
+        } catch {
+          return false;
+        }
       });
-
-      // Play bass line
-      bassNotes.forEach((freq, i) => {
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        
-        osc.frequency.value = freq;
-        osc.type = 'sine';
-        
-        gain.gain.setValueAtTime(0, now + i * tempo * 2);
-        gain.gain.linearRampToValueAtTime(0.15, now + i * tempo * 2 + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + i * tempo * 2 + tempo * 2 - 0.01);
-        
-        osc.connect(gain);
-        gain.connect(masterGain);
-        
-        osc.start(now + i * tempo * 2);
-        osc.stop(now + i * tempo * 2 + tempo * 2);
-      });
-
-      // Loop the theme
-      setTimeout(() => {
-        if (isPlaying) playTheme();
-      }, melodyNotes.length * tempo * 1000);
-    };
-
-    if (isPlaying && audioContext.state === 'suspended') {
-      audioContext.resume();
-    }
-
-    if (isPlaying) {
-      playTheme();
-    }
+      if (isPlaying) playMelodyLoop();
+    }, loopDuration);
   };
 
   const togglePlay = () => {
-    setIsPlaying(!isPlaying);
     if (!isPlaying) {
-      createEnergeticTheme();
+      // Resume audio context if suspended
+      if (audioContextRef.current?.state === 'suspended') {
+        audioContextRef.current.resume();
+      }
+      setIsPlaying(true);
+      // Start music on next render
+      setTimeout(() => {
+        if (!isPlaying) playMelodyLoop();
+      }, 0);
+    } else {
+      setIsPlaying(false);
+      // Stop all oscillators
+      oscillatorsRef.current.forEach(osc => {
+        try {
+          osc.stop();
+        } catch (e) {
+          // Already stopped
+        }
+      });
+      oscillatorsRef.current = [];
     }
   };
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newVolume = parseFloat(e.target.value);
     setVolume(newVolume);
-    if (audioRef.current) {
-      audioRef.current.volume = newVolume;
+    if (masterGainRef.current) {
+      masterGainRef.current.gain.setValueAtTime(newVolume, audioContextRef.current?.currentTime || 0);
     }
   };
 
+  useEffect(() => {
+    if (isPlaying) {
+      playMelodyLoop();
+    }
+  }, [isPlaying]);
+
   return (
-    <div className="fixed bottom-4 right-4 z-50 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-2xl p-3 flex items-center gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full shadow-2xl p-3 sm:p-4 flex items-center gap-2 sm:gap-3 border-2 border-white/20 backdrop-blur-md">
       <button
         onClick={togglePlay}
-        className="w-12 h-12 rounded-full bg-white text-purple-600 flex items-center justify-center hover:bg-purple-50 transition-all duration-300 shadow-lg"
+        className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white text-purple-600 flex items-center justify-center hover:bg-purple-50 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-95 flex-shrink-0"
         aria-label={isPlaying ? "Pause music" : "Play music"}
+        title={isPlaying ? "Pause" : "Play"}
       >
         {isPlaying ? (
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
             <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
           </svg>
         ) : (
-          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="currentColor" viewBox="0 0 24 24">
             <path d="M8 5v14l11-7z" />
           </svg>
         )}
       </button>
       
       {isPlaying && (
-        <div className="flex items-center gap-2 pr-2 animate-fade-in">
-          <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z" />
+        <div className="flex items-center gap-1 sm:gap-2 pr-1 sm:pr-2 animate-fade-in">
+          <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white flex-shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zm2.5 0c0 .94-.2 1.82-.54 2.64h1.42c.9-1.2 1.43-2.68 1.43-4.3 0-1.62-.53-3.1-1.43-4.3h-1.42c.34.82.54 1.7.54 2.64v3.27zm-7.5-7.27v2.06c2.89.86 5 3.54 5 6.77s-2.11 5.91-5 6.77v2.06c4.01-.91 7-4.49 7-8.83s-2.99-7.92-7-8.83z" />
           </svg>
           <input
             type="range"
             min="0"
             max="1"
-            step="0.1"
+            step="0.05"
             value={volume}
             onChange={handleVolumeChange}
-            className="w-20 h-2 bg-white bg-opacity-30 rounded-lg appearance-none cursor-pointer"
+            className="w-16 sm:w-24 h-2 bg-white/30 rounded-lg appearance-none cursor-pointer hover:bg-white/40 transition-colors"
             style={{
               background: `linear-gradient(to right, white ${volume * 100}%, rgba(255,255,255,0.3) ${volume * 100}%)`
             }}
+            title={`Volume: ${Math.round(volume * 100)}%`}
           />
+          <span className="text-white text-xs sm:text-sm font-bold min-w-[2rem] flex-shrink-0">{Math.round(volume * 100)}%</span>
         </div>
       )}
       
       {isPlaying && (
-        <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-400 rounded-full animate-pulse" />
+        <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
       )}
     </div>
   );

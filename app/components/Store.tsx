@@ -143,22 +143,22 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
   const isOwned = (itemId: string) => userData.purchases.includes(itemId);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-4">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white p-3 sm:p-4 md:p-6 lg:p-8 overflow-y-auto">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
           <div>
-            <h1 className="text-4xl font-black">🛍️ IN-GAME STORE</h1>
-            <p className="text-gray-400">Spend your coins wisely!</p>
+            <h1 className="text-3xl sm:text-4xl font-black">🛍️ IN-GAME STORE</h1>
+            <p className="text-gray-400 text-sm sm:text-base">Spend your coins wisely!</p>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="bg-yellow-600/30 border border-yellow-500 rounded-xl px-6 py-3">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full sm:w-auto">
+            <div className="bg-yellow-600/30 border border-yellow-500 rounded-xl px-4 sm:px-6 py-2 sm:py-3 w-full sm:w-auto">
               <p className="text-xs text-gray-300">Available Coins</p>
-              <p className="text-3xl font-black text-yellow-400">💰 {userData.coins}</p>
+              <p className="text-2xl sm:text-3xl font-black text-yellow-400">💰 {userData.coins}</p>
             </div>
             <button
               onClick={onBack}
-              className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-xl font-bold transition-all"
+              className="bg-blue-600 hover:bg-blue-700 px-6 py-2 sm:py-3 rounded-xl font-bold transition-all w-full sm:w-auto"
             >
               ← Back
             </button>
@@ -190,7 +190,7 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
         </div>
 
         {/* Items Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {filteredItems.map((item) => {
             const owned = isOwned(item.id);
             const canAfford = userData.coins >= item.cost;
@@ -198,37 +198,37 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
             return (
               <div
                 key={item.id}
-                className={`rounded-2xl p-6 border transition-all transform hover:scale-105 ${
+                className={`rounded-xl sm:rounded-2xl p-4 sm:p-6 border transition-all transform hover:scale-105 ${
                   owned
                     ? 'bg-green-900/30 border-green-500/50'
                     : 'bg-slate-900/80 border-purple-500/30 backdrop-blur-sm'
                 }`}
               >
-                <div className="flex justify-between items-start mb-4">
-                  <div className="text-5xl">{item.emoji}</div>
+                <div className="flex justify-between items-start mb-3 sm:mb-4">
+                  <div className="text-4xl sm:text-5xl">{item.emoji}</div>
                   {owned && (
-                    <div className="bg-green-600 px-3 py-1 rounded-lg text-xs font-bold">
+                    <div className="bg-green-600 px-2 sm:px-3 py-1 rounded-lg text-xs font-bold">
                       ✅ OWNED
                     </div>
                   )}
                 </div>
 
-                <h3 className="text-xl font-bold mb-2">{item.name}</h3>
-                <p className="text-sm text-gray-400 mb-4">{item.description}</p>
+                <h3 className="text-lg sm:text-xl font-bold mb-2">{item.name}</h3>
+                <p className="text-xs sm:text-sm text-gray-400 mb-3 sm:mb-4">{item.description}</p>
 
-                <div className="bg-slate-800/50 rounded-lg p-3 mb-4 border border-slate-700">
+                <div className="bg-slate-800/50 rounded-lg p-2 sm:p-3 mb-3 sm:mb-4 border border-slate-700">
                   <p className="text-xs text-gray-300 mb-1">Benefit:</p>
-                  <p className="text-sm font-bold text-cyan-300">{item.benefit}</p>
+                  <p className="text-xs sm:text-sm font-bold text-cyan-300">{item.benefit}</p>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="text-2xl font-black text-yellow-400">
+                <div className="flex items-center justify-between gap-2 sm:gap-3">
+                  <div className="text-xl sm:text-2xl font-black text-yellow-400">
                     💰 {item.cost}
                   </div>
                   <button
                     onClick={() => handlePurchase(item)}
                     disabled={owned || !canAfford}
-                    className={`px-6 py-2 rounded-xl font-bold transition-all transform ${
+                    className={`px-4 sm:px-6 py-2 rounded-xl font-bold transition-all transform text-sm sm:text-base ${
                       owned
                         ? 'bg-green-600/50 text-gray-400 cursor-not-allowed'
                         : canAfford
@@ -245,9 +245,9 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
         </div>
 
         {/* Bottom Info */}
-        <div className="mt-12 bg-slate-900/50 rounded-2xl p-6 border border-slate-700">
-          <h3 className="font-bold text-lg mb-3">💡 Store Tips</h3>
-          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-300">
+        <div className="mt-8 sm:mt-12 bg-slate-900/50 rounded-xl sm:rounded-2xl p-4 sm:p-6 border border-slate-700">
+          <h3 className="font-bold text-lg sm:text-xl mb-3 sm:mb-4">💡 Store Tips</h3>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm text-gray-300">
             <li>✨ Themes personalize your experience</li>
             <li>⚡ Power-ups give you advantages</li>
             <li>🔓 Unlocks access new features</li>

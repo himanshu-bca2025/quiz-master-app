@@ -27,12 +27,18 @@
 }
 
 html,
-body {
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  position: fixed;
+body,
+#__next {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -42,9 +48,22 @@ body {
 }
 
 #__next {
-  width: 100%;
-  height: 100%;
-  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Aspect ratio containers */
+@media (min-aspect-ratio: 16/9) {
+  body {
+    aspect-ratio: 16/9;
+  }
+}
+
+@media (min-aspect-ratio: 4/3) {
+  body {
+    aspect-ratio: 4/3;
+  }
 }
 
 /* Mobile First - Phone (Portrait) */
@@ -96,8 +115,10 @@ body {
 @supports (-webkit-touch-callout: none) {
   input,
   select,
-  textarea {
+  textarea,
+  button {
     font-size: 16px !important;
+    min-height: 44px;
   }
 }
 
@@ -118,4 +139,24 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(128, 128, 128, 0.7);
+}
+
+/* Additional responsive tweaks */
+@media (max-width: 640px) {
+  * {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  
+  input,
+  textarea,
+  select {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  
+  button {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }

@@ -114,49 +114,49 @@ export default function ForgotPassword({ onBack }: ForgotPasswordProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <div className="bg-slate-900 rounded-3xl shadow-2xl border border-purple-500/30 p-8 backdrop-blur-sm">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 flex items-center justify-center p-3 sm:p-4 md:p-6 overflow-y-auto">
+      <div className="w-full max-w-md my-auto">
+        <div className="bg-slate-900 rounded-2xl sm:rounded-3xl shadow-2xl border border-purple-500/30 p-6 sm:p-8 backdrop-blur-sm">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="text-6xl mb-3">🔑</div>
-            <h1 className="text-3xl font-black text-white mb-2">RESET PASSWORD</h1>
-            <p className="text-gray-400 text-sm">Verify your identity to reset password</p>
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="text-5xl sm:text-6xl mb-2 sm:mb-3">🔑</div>
+            <h1 className="text-2xl sm:text-3xl font-black text-white mb-2">RESET PASSWORD</h1>
+            <p className="text-gray-400 text-xs sm:text-sm">Verify your identity to reset password</p>
           </div>
 
           {/* Step 1: Verify */}
           {step === 'verify' && (
-            <form onSubmit={handleVerify} className="space-y-4">
+            <form onSubmit={handleVerify} className="space-y-3 sm:space-y-4">
               <div>
-                <label className="block text-sm font-bold text-gray-300 mb-2">Username</label>
+                <label className="block text-xs sm:text-sm font-bold text-gray-300 mb-2">Username</label>
                 <input
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder="Enter your username"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all text-sm sm:text-base"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-300 mb-2">Date of Birth</label>
+                <label className="block text-xs sm:text-sm font-bold text-gray-300 mb-2">Date of Birth</label>
                 <input
                   type="date"
                   value={dateOfBirth}
                   onChange={(e) => setDateOfBirth(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-purple-500 transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-slate-800 border border-slate-700 text-white focus:outline-none focus:border-purple-500 transition-all text-sm sm:text-base"
                 />
               </div>
 
               {error && (
-                <div className="bg-red-900/30 border border-red-500 text-red-200 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-red-900/30 border border-red-500 text-red-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-xs sm:text-sm">
                   {error}
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-3 rounded-xl transition-all transform hover:scale-105 active:scale-95"
+                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold py-2 sm:py-3 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base"
               >
                 ✓ Verify Identity
               </button>
@@ -165,19 +165,19 @@ export default function ForgotPassword({ onBack }: ForgotPasswordProps) {
 
           {/* Step 2: Reset */}
           {step === 'reset' && (
-            <form onSubmit={handleReset} className="space-y-4">
-              <div className="bg-green-900/20 border border-green-500 text-green-200 px-4 py-3 rounded-lg text-sm">
+            <form onSubmit={handleReset} className="space-y-3 sm:space-y-4">
+              <div className="bg-green-900/20 border border-green-500 text-green-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-xs sm:text-sm">
                 ✅ Identity verified! Now set your new password.
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-300 mb-2">New Password</label>
+                <label className="block text-xs sm:text-sm font-bold text-gray-300 mb-2">New Password</label>
                 <input
                   type="password"
                   value={newPassword}
                   onChange={handlePasswordChange}
                   placeholder="Enter new password"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all text-sm sm:text-base"
                 />
                 {newPassword && (
                   <div className="mt-2">
@@ -203,13 +203,13 @@ export default function ForgotPassword({ onBack }: ForgotPasswordProps) {
               </div>
 
               <div>
-                <label className="block text-sm font-bold text-gray-300 mb-2">Confirm Password</label>
+                <label className="block text-xs sm:text-sm font-bold text-gray-300 mb-2">Confirm Password</label>
                 <input
                   type="password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Confirm new password"
-                  className="w-full px-4 py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-all text-sm sm:text-base"
                 />
                 {confirmPassword && newPassword === confirmPassword && (
                   <p className="text-green-400 text-xs mt-1">✓ Passwords match!</p>
@@ -220,20 +220,20 @@ export default function ForgotPassword({ onBack }: ForgotPasswordProps) {
               </div>
 
               {error && (
-                <div className="bg-red-900/30 border border-red-500 text-red-200 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-red-900/30 border border-red-500 text-red-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-xs sm:text-sm">
                   {error}
                 </div>
               )}
 
               {success && (
-                <div className="bg-green-900/30 border border-green-500 text-green-200 px-4 py-3 rounded-lg text-sm">
+                <div className="bg-green-900/30 border border-green-500 text-green-200 px-3 sm:px-4 py-2 sm:py-3 rounded-lg text-xs sm:text-sm">
                   {success}
                 </div>
               )}
 
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-3 rounded-xl transition-all transform hover:scale-105 active:scale-95"
+                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold py-2 sm:py-3 rounded-xl transition-all transform hover:scale-105 active:scale-95 text-sm sm:text-base"
               >
                 🔒 Reset Password
               </button>
@@ -241,17 +241,17 @@ export default function ForgotPassword({ onBack }: ForgotPasswordProps) {
           )}
 
           {/* Back Button */}
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <button
               onClick={onBack}
-              className="text-cyan-400 hover:text-cyan-300 font-bold transition-colors text-sm"
+              className="text-cyan-400 hover:text-cyan-300 font-bold transition-colors text-xs sm:text-sm"
             >
               ← Back to Login
             </button>
           </div>
 
           {/* Info */}
-          <div className="mt-8 bg-slate-800/50 rounded-xl p-4 border border-slate-700">
+          <div className="mt-6 sm:mt-8 bg-slate-800/50 rounded-xl p-3 sm:p-4 border border-slate-700">
             <p className="text-xs text-gray-400 text-center">
               🔐 Your security is important to us. Use a strong password with numbers and special characters.
             </p>
