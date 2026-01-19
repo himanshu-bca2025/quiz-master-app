@@ -102,17 +102,17 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
         </div>
 
         {/* Main Action Buttons */}
-        <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
+        <div className="space-y-4 sm:space-y-5 mb-4 sm:mb-6">
           <button
             onClick={onStartGame}
-            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg"
+            className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-black py-4 sm:py-5 md:py-6 rounded-xl sm:rounded-2xl text-lg sm:text-xl md:text-2xl transition-all transform hover:scale-105 active:scale-95 shadow-lg"
           >
             🚀 START GAME
           </button>
 
           <button
             onClick={onOpenStore}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-3 sm:py-4 rounded-xl sm:rounded-2xl text-base sm:text-lg transition-all transform hover:scale-105 active:scale-95 shadow-lg"
+            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black py-4 sm:py-5 md:py-6 rounded-xl sm:rounded-2xl text-lg sm:text-xl md:text-2xl transition-all transform hover:scale-105 active:scale-95 shadow-lg"
           >
             🛍️ VISIT STORE ({userData.coins} coins available)
           </button>
