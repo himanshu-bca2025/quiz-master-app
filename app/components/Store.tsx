@@ -143,8 +143,8 @@ export default function Store({ userData, onBuyItem, onBack }: StoreProps) {
   const isOwned = (itemId: string) => userData.purchases.includes(itemId);
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-y-auto">
-      <div className="min-h-screen w-full flex flex-col px-4 sm:px-6 md:px-8 py-6 max-w-7xl mx-auto">
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-y-auto flex items-start justify-center">
+      <div className="w-full max-w-7xl px-4 sm:px-6 md:px-8 py-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 sm:mb-8 gap-4">
           <div>

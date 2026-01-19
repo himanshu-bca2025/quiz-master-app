@@ -44,8 +44,8 @@ export default function Dashboard({ user, userData, onLogout, onStartGame, onOpe
   const nextMilestone = getNextMilestone();
 
   return (
-    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-y-auto">
-      <div className="min-h-screen w-full flex flex-col px-4 sm:px-6 md:px-8 py-6 max-w-4xl mx-auto">
+    <div className="w-screen h-screen bg-gradient-to-br from-slate-950 via-purple-900 to-slate-950 text-white overflow-hidden flex items-center justify-center">
+      <div className="w-full max-w-7xl px-4 sm:px-6 md:px-8 py-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 sm:mb-6 gap-3">
           <div>
